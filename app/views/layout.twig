@@ -3,11 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="/css/stile-backend.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h1>Page Title</h1>
-    {% block content %}
+    <div class="sx-column">
+        {% block sxcolumn %}
+        {% endblock %}
+    </div>
+    <div class="main-column">
+        <div class="page-title">
+            <h1>{{ PageTitle }}</h1>
+        </div>
+        <div class="sx-top">
+            {% block sxtop %}
+            {% endblock %}
+        </div>
+        <div class="dx-top">
+            {% block dxtop %}
+            {% endblock %}
+        </div>
+        <div class="sx-bottom">
+            {% block sxbottom %}
+            {% endblock %}
+        </div>
+        <div class="dx-bottom">
+            {% block dxbottom %}
+            {% endblock %}
+        </div>
+    </div>
+    <div class="dx-column">
+        {% block dxcolumn %}
+        {% endblock %}
+    </div>
 
-    {% endblock %}
 </body>
 </html>

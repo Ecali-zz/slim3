@@ -1,4 +1,4 @@
-/*----------------------- BASE -----------------------------*/
+/*----------------------- BASE ------------------------*/
 .sx-column{
 //background-color: azure;
 //border: solid 1px black;
@@ -27,18 +27,16 @@
     float: left;
     padding-left: 5%;
 }
+.page-title{
+    width: 100%;
+    text-align: center;
+}
 .sx-top{
     width: 40%;
     border: solid 1px black;
     float: left;
     border-radius: 5%;
-}
-.sx-bottom{
-    width: 40%;
-    border: solid 1px black;
-    float: left;
-    border-radius: 5%;
-    margin-top: 5%;
+    margin-left: 5%;
 }
 .dx-top{
     width: 40%;
@@ -46,6 +44,14 @@
     float: left;
     border-radius: 5%;
     margin-left: 5%;
+}
+.sx-bottom{
+    width: 40%;
+    border: solid 1px black;
+    float: left;
+    border-radius: 5%;
+    margin-left: 5%;
+    margin-top: 5%;
 }
 .dx-bottom{
     width: 40%;

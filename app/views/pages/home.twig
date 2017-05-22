@@ -1,10 +1,21 @@
 {% extends 'layout.twig' %}
 
-{%  block content %}
-    Hello<br/>
-    by {{ name }}<br/><br/>
-    <a href=" {{ singin }} ">{{ singin }}</a><br/>
-    <a href=" {{ login }} ">{{ login }}</a><br/>
-    <a href=" {{ quit }} ">{{ quit }}</a><br/>
-    <a href=" {{ about }} ">{{ about }}</a><br/>
+{% block sxtop %}
+    <a href=" {{ singin }} ">{{ singin |upper }}</a>
+{% endblock %}
+
+{% block dxtop %}
+    <a href=" {{ login }} ">{{ login |upper }}</a>
+{% endblock %}
+
+{% block sxbottom %}
+    {% if(quit == 'https://www.google.it/') %}
+        <a href=" {{ quit }} ">QUIT</a>
+    {% else %}
+        <a href=" {{ quit }} ">{{ quit |upper }}</a>
+    {% endif %}
+{% endblock %}
+
+{% block dxbottom %}
+    <a href=" {{ about }} ">{{ about |upper }}</a>
 {% endblock %}
