@@ -17,7 +17,5 @@ class PageController{
         $txt = $txt->text;
         $txt['name'] = 'Elvio';
         $this->container->view->render($response, 'pages/home.twig', $txt);
-
     }
-
 }
