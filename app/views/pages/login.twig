@@ -1,0 +1,29 @@
+{% extends 'layout.twig' %}
+
+{% block morehead %}
+    <script>
+        function validateForm() {
+            var userid = document.forms["first"]["Userlog"].value;
+            var psw = document.forms["first"]["psw"].value;
+            if (userid === "") {
+                alert("ERROR: User non inserito");
+                return false;
+            }
+            if (psw === "") {
+                alert("ERROR: Password non inserita");
+                return false;
+            }
+        }
+    </script>
+    {% endblock %}
+
+{% block maincontent %}
+    <div class="logblock">
+        <form class="formlogin" name="first" action = "{{ path_for('loggato')}}" onsubmit="return validateForm()" method = "POST">
+            <label>User ID:<input type="text" id="user" name="Userlog" placeholder="Nome"/> </label>
+            <br>
+            <label>Password:<input type = "password" name = "psw" placeholder="Password" /></label><br>
+            <input type = "submit" value="Accedi"/>
+        </form>
+    </div>
+{% endblock %}

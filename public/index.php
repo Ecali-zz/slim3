@@ -12,7 +12,7 @@ require '../app/container.php';
 
 
 $app->get('/',\App\Controllers\PageController::class . ':home');
-
-
+$app->get('/login',\App\Controllers\PageController::class . ':login');
+$app->post('/homeback',\App\Controllers\PageController::class . ':homeback')->setName('loggato');
 
 $app->run();

@@ -2,8 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    {% if currentLocation == 'http://localhost:8080/' %}
+    {% set pageTitle = 'CaliHomepage' %}
+    {% endif %}
+    <title>{{ pageTitle }}</title>
     <link href="/css/stile-backend.css" rel="stylesheet" type="text/css">
+    {% block morehead %}
+    {% endblock %}
 </head>
 <body>
     <div class="sx-column">
@@ -14,27 +19,12 @@
         <div class="page-title">
             <h1>{{ PageTitle }}</h1>
         </div>
-        <div class="sx-top">
-            {% block sxtop %}
-            {% endblock %}
-        </div>
-        <div class="dx-top">
-            {% block dxtop %}
-            {% endblock %}
-        </div>
-        <div class="sx-bottom">
-            {% block sxbottom %}
-            {% endblock %}
-        </div>
-        <div class="dx-bottom">
-            {% block dxbottom %}
-            {% endblock %}
-        </div>
+        {% block maincontent %}
+        {% endblock %}
     </div>
     <div class="dx-column">
         {% block dxcolumn %}
         {% endblock %}
     </div>
-
 </body>
 </html>

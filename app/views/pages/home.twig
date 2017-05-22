@@ -1,21 +1,20 @@
 {% extends 'layout.twig' %}
 
-{% block sxtop %}
+{% block maincontent %}
+    <div class="sx-top">
     <a href=" {{ singin }} ">{{ singin |upper }}</a>
-{% endblock %}
-
-{% block dxtop %}
+    </div>
+    <div class="dx-top">
     <a href=" {{ login }} ">{{ login |upper }}</a>
-{% endblock %}
-
-{% block sxbottom %}
+    </div>
+    <div class="sx-bottom">
     {% if(quit == 'https://www.google.it/') %}
         <a href=" {{ quit }} ">QUIT</a>
     {% else %}
         <a href=" {{ quit }} ">{{ quit |upper }}</a>
     {% endif %}
-{% endblock %}
-
-{% block dxbottom %}
+    </div>
+    <div class="dx-bottom">
     <a href=" {{ about }} ">{{ about |upper }}</a>
+    </div>
 {% endblock %}

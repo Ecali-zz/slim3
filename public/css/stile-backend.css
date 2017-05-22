@@ -31,6 +31,7 @@
     width: 100%;
     text-align: center;
 }
+/*------------------------HOME----------------------------*/
 .sx-top{
     width: 40%;
     border: solid 1px black;
@@ -60,4 +61,12 @@
     border-radius: 5%;
     margin-left: 5%;
     margin-top: 5%;
+}
+/*------------------------LOGIN----------------------------*/
+.logblock{
+    border: solid 1px black;
+    background-color: rgba(0, 255, 0, 0.2);
+    padding-top: 50px;
+    padding-bottom: 50px;
+    font-size: 18px;
 }
