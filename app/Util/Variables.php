@@ -34,9 +34,17 @@ class Variables
     /**
      * @param string $key
      * @param string $value
+     *
+     * @throws \Exception
      */
     public function addInjection($key, $value)
     {
+        $value = trim($value);
+
+        if ($value === '') {
+            throw new \Exception('$value can\'t be empty');
+        }
+
         $this->injections[$key] = $value;
     }
 }
