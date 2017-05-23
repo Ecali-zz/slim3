@@ -1,21 +1,4 @@
-{% extends 'layout.twig' %}
-
-
-
-    {% block sxcolumn %}
-        <a  href="/add/news"><div class="btn-left-side">New news</div></a>
-        {% if(lv < 3) %}
-        <a  href=""><div class="btn-left-side">View all Post</div></a>
-        {% if(lv < 2 ) %}
-            <a  href=""><div class="btn-left-side">New Post</div></a>
-            {% if(lv < 1) %}
-                <a  href=""><div class="btn-left-side">New User</div></a>
-            {% endif %}
-        {% endif %}
-        {% endif %}
-    {% endblock %}
-
-
+{% extends 'layout-back.twig' %}
 
 {% block dxcolumntop %}
     {% if(ErrorMsg) %}

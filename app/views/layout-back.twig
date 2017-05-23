@@ -24,11 +24,22 @@
 </div>
 <div class="dx-column-top">
     {% block dxcolumntop %}
+        <a href="/user/{{ Userlog }}"><h4><img class="img-user" src="/images/user-2-icon.png">Ben tornato {{ Userlog }}</h4></a>
     {% endblock %}
 </div>
 
 <div class="sx-column">
     {% block sxcolumn %}
+        <a  href="/add/news"><div class="btn-left-side">New news</div></a>
+        {% if(lv < 3) %}
+            <a  href="/post"><div class="btn-left-side">View all Post</div></a>
+            {% if(lv < 2 ) %}
+                <a  href="/add/post"><div class="btn-left-side">New Post</div></a>
+                {% if(lv < 1) %}
+                    <a  href="/add/user"><div class="btn-left-side">New User</div></a>
+                {% endif %}
+            {% endif %}
+        {% endif %}
     {% endblock %}
 </div>
 <div class="main-column">
