@@ -1,5 +1,34 @@
 {% extends 'layout.twig' %}
 
+
+{% if(lv < 3) %}
+    {% block sxcolumn %}
+        <ul>
+            <li><a href="">View all Post</a></li>
+        {% if(lv < 2 ) %}
+            <li><a href="">New Post</a></li>
+            {% if(lv < 1) %}
+                <li><a href="">New User</a></li>
+            {% endif %}
+        {% endif %}
+        </ul>
+    {% endblock %}
+{% endif %}
+
+
+{% block dxcolumntop %}
+    {% if(ErrorMsg) %}
+        <h4>Ben tornato {{ user }}</h4>
+    {% endif %}
+{% endblock %}
+
+
 {% block maincontent %}
-    <h4>Ben tornato {{ user }} {{ psw }}</h4>
+    {% if(ErrorMsg != true) %}
+     <h4>Accesso negato a {{ user }}</h4>
+    {% endif %}
+{% endblock %}
+
+{% block dxcolumn %}
+    <embed name="banner" src="/Users/elvio/Sites/Slim3/app/src/123-banner_com_sky224170.swf" quality="high" width="160" height="600" >
 {% endblock %}

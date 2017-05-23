@@ -41,13 +41,17 @@ class PageController
         $txt = new TextPageControll();
         $txt = $txt->text;
         $data = $request->getParsedBody();
-
-        $posts = $this->container->db->query('SELECT * FROM post');
-        die(var_dump($posts));
-
+        $txt['ErrorMsg'] = false;
+        $posts = $this->container->db->query('SELECT * FROM users');
+        //die(var_dump($posts));
+        for($y=0;$y<count($posts);$y++){
+            if($posts[$y]['user'] === $data['Userlog'] && $posts[$y]['psw'] === $data['psw']){
+                $txt['ErrorMsg'] = true;
+                $txt['lv'] = $posts[$y]['lva'];
+            }
+        }
         $txt['user'] = $data['Userlog'];
         $txt['psw'] = $data['psw'];
-
         $txt['PageTitle'] = 'Homepage Backend';
 
         $this->container->view->render($response, 'pages/homeback.twig', $txt);

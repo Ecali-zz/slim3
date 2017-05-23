@@ -11,7 +11,7 @@ class Database{
     }
 
     public function query($sql){
-        $req = $this->pdo->prepare( 'SELECT * FROM posts');
+        $req = $this->pdo->prepare( 'SELECT * FROM users');
         $req->execute();
         return $req->fetchAll();
     }

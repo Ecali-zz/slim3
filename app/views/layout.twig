@@ -11,14 +11,27 @@
     {% endblock %}
 </head>
 <body>
+    <div class="sx-column-top">
+        {% block sxcolumntop %}
+        {% endblock %}
+    </div>
+    <div class="main-column-top">
+        <div class="page-title">
+            <h1>{{ PageTitle }}</h1>
+        </div>
+        {% block maincontenttop %}
+        {% endblock %}
+    </div>
+    <div class="dx-column-top">
+        {% block dxcolumntop %}
+        {% endblock %}
+    </div>
+
     <div class="sx-column">
         {% block sxcolumn %}
         {% endblock %}
     </div>
     <div class="main-column">
-        <div class="page-title">
-            <h1>{{ PageTitle }}</h1>
-        </div>
         {% block maincontent %}
         {% endblock %}
     </div>

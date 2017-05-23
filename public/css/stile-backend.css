@@ -27,6 +27,37 @@
     float: left;
     padding-left: 5%;
 }
+.sx-column-top{
+//background-color: azure;
+//border: solid 1px black;
+    text-align: center;
+    min-width: 22%;
+    max-height: 75px;
+    min-height: 75px;
+    float: left;
+//padding-top: 50px;
+}
+.dx-column-top{
+//background-color: azure;
+//border: solid 1px black;
+    text-align: center;
+//padding-top: 50px;
+    min-width: 22%;
+    max-height: 75px;
+    min-height: 75px;
+    float: right;
+}
+.main-column-top{
+    width: 50%;
+    background-color: #fff;
+    text-align: center;
+    max-height: 75px;
+    min-height: 75px;
+    min-width: 40%;
+//padding-top: 50px;
+    float: left;
+    padding-left: 5%;
+}
 .page-title{
     width: 100%;
     text-align: center;
