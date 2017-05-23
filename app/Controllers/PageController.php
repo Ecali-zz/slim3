@@ -3,6 +3,8 @@ namespace App\Controllers;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use App\Util\Variables;
+use Psr\Http\Message\ServerRequestInterface;
 
 class PageController
 {
@@ -15,45 +17,44 @@ class PageController
 
     public function test(RequestInterface $request, ResponseInterface $response)
     {
-        //die(var_dump(get_declared_classes()));
-
         $this->container->view->render($response, 'pages/home.twig');
     }
 
     public function home(RequestInterface $request, ResponseInterface $response)
     {
-        $txt= new TextPageControll();
-        $txt = $txt->text;
-        $txt['PageTitle'] = 'Home';
-        $this->container->view->render($response, 'pages/home.twig', $txt);
+        $variables = new Variables();
+        $variables->addInjection('PageTitle', 'Home');
+
+        $this->container->view->render($response, 'pages/home.twig', $variables->getInjections());
     }
 
     public function login(RequestInterface $request, ResponseInterface $response)
     {
-        $txt= new TextPageControll();
-        $txt = $txt->text;
-        $txt['PageTitle'] = 'Login';
+        $variables = new Variables();
+        $variables->addInjection('PageTitle', 'Login');
 
-        $this->container->view->render($response, 'pages/login.twig', $txt);
+        $this->container->view->render($response, 'pages/login.twig', $variables->getInjections());
     }
+
     public function homeback(RequestInterface $request, ResponseInterface $response)
     {
-        $txt = new TextPageControll();
-        $txt = $txt->text;
+        $variables = new Variables();
+
         $data = $request->getParsedBody();
-        $txt['ErrorMsg'] = false;
+
         $posts = $this->container->db->query('SELECT * FROM users');
-        //die(var_dump($posts));
-        for($y=0;$y<count($posts);$y++){
-            if($posts[$y]['user'] === $data['Userlog'] && $posts[$y]['psw'] === $data['psw']){
-                $txt['ErrorMsg'] = true;
-                $txt['lv'] = $posts[$y]['lva'];
+
+        for($y=0;$y<count($posts);$y++) {
+            if ($posts[$y]['user'] === $data['Userlog'] && $posts[$y]['psw'] === $data['psw']) {
+                $variables->addInjection('ErrorMsg', true);
+                $variables->addInjection('lv', $posts[$y]['lva']);
             }
         }
-        $txt['user'] = $data['Userlog'];
-        $txt['psw'] = $data['psw'];
-        $txt['PageTitle'] = 'Homepage Backend';
 
-        $this->container->view->render($response, 'pages/homeback.twig', $txt);
+        $variables->addInjection('user', $data['Userlog']);
+        $variables->addInjection('psw', $data['psw']);
+        $variables->addInjection('PageTitle', 'Homepage Backend');
+
+        $this->container->view->render($response, 'pages/homeback.twig', $variables->getInjections());
     }
 }
