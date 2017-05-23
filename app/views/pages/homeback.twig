@@ -1,32 +1,58 @@
 {% extends 'layout.twig' %}
 
 
-{% if(lv < 3) %}
+
     {% block sxcolumn %}
-        <ul>
-            <li><a href="">View all Post</a></li>
+        <a  href="/add/news"><div class="btn-left-side">New news</div></a>
+        {% if(lv < 3) %}
+        <a  href=""><div class="btn-left-side">View all Post</div></a>
         {% if(lv < 2 ) %}
-            <li><a href="">New Post</a></li>
+            <a  href=""><div class="btn-left-side">New Post</div></a>
             {% if(lv < 1) %}
-                <li><a href="">New User</a></li>
+                <a  href=""><div class="btn-left-side">New User</div></a>
             {% endif %}
         {% endif %}
-        </ul>
+        {% endif %}
     {% endblock %}
-{% endif %}
+
 
 
 {% block dxcolumntop %}
     {% if(ErrorMsg) %}
-        <h4>Ben tornato {{ user }}</h4>
+        <a href="/user/{{ Userlog }}"><h4><img class="img-user" src="/images/user-2-icon.png">Ben tornato {{ Userlog }}</h4></a>
     {% endif %}
 {% endblock %}
 
 
 {% block maincontent %}
+    {% set imgnews, titlenews, bodynews= '', '', '' %}
     {% if(ErrorMsg != true) %}
-     <h4>Accesso negato a {{ user }}</h4>
+     <h4>Accesso negato a {{ Userlog }}</h4>
     {% endif %}
+    {% block newsHome %}
+        {% for i in 0..2 %}
+            {% if(i==0) %}
+                {% set imgnews, titlenews, bodynews= imgnews2, titlenews2, bodynews2 %}
+            {% endif %}
+            {% if(i==1) %}
+                {% set imgnews, titlenews, bodynews= imgnews1, titlenews1, bodynews1 %}
+            {% endif %}
+            {% if(i==2) %}
+                {% set imgnews, titlenews, bodynews= imgnews0, titlenews0, bodynews0 %}
+            {% endif %}
+        <div class="newshome">
+            <div class="img-news2">
+                <img class="img-news" src="{{ imgnews }}">
+            </div>
+            <div class="bodynews">
+                <h4>{{ titlenews | upper }}</h4>
+                <hr style="width: 100%;">
+                <p>{{ bodynews }}</p>
+            </div>
+        </div>
+
+        {% endfor %}
+            {% endblock %}
 {% endblock %}
 
 {% block dxcolumn %}

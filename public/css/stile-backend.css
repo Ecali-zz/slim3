@@ -1,9 +1,14 @@
 /*----------------------- BASE ------------------------*/
+a{
+    text-decoration: none;
+    color: darkgreen;
+}
 .sx-column{
 //background-color: azure;
 //border: solid 1px black;
     text-align: center;
     min-width: 22%;
+    max-width: 22%;
     min-height: 100%;
     float: left;
     padding-top: 50px;
@@ -28,20 +33,14 @@
     padding-left: 5%;
 }
 .sx-column-top{
-//background-color: azure;
-//border: solid 1px black;
     text-align: center;
     min-width: 22%;
     max-height: 75px;
     min-height: 75px;
     float: left;
-//padding-top: 50px;
 }
 .dx-column-top{
-//background-color: azure;
-//border: solid 1px black;
     text-align: center;
-//padding-top: 50px;
     min-width: 22%;
     max-height: 75px;
     min-height: 75px;
@@ -54,7 +53,6 @@
     max-height: 75px;
     min-height: 75px;
     min-width: 40%;
-//padding-top: 50px;
     float: left;
     padding-left: 5%;
 }
@@ -100,4 +98,35 @@
     padding-top: 50px;
     padding-bottom: 50px;
     font-size: 18px;
+}
+/*------------------------homeback----------------------------*/
+.btn-left-side{
+    background-color: #d6d6d6;
+    height: 35px;
+    line-height: 35px;
+    margin-bottom: 10px;
+    float: right;
+    width: 90%;
+}
+.img-user{
+    width: 35px;
+    height: 35px;
+}
+.newshome{
+    border-bottom: solid black 3px;
+    width: 70%;
+    margin-left: 14%;
+    margin-right: 14%;
+}
+.img-news2{
+    width: 35%;
+    height: 100%;
+}
+.img-news{
+    width: 35%;
+    height: 100%;
+    float: left;
+}
+.bodynews{
+
 }

@@ -42,7 +42,7 @@ class Variables
         $value = trim($value);
 
         if ($value === '') {
-            throw new \Exception('$value can\'t be empty');
+            throw new \Exception($key.' can\'t be empty');
         }
 
         $this->injections[$key] = $value;
