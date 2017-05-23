@@ -22,7 +22,7 @@ class PageController
 
     public function home(RequestInterface $request, ResponseInterface $response)
     {
-        $txt= new TextPageControll();
+        $txt= new TextPageController();
         $txt = $txt->text;
         $txt['PageTitle'] = 'Home';
         $this->container->view->render($response, 'pages/home.twig', $txt);
@@ -30,7 +30,7 @@ class PageController
 
     public function login(RequestInterface $request, ResponseInterface $response)
     {
-        $txt= new TextPageControll();
+        $txt= new TextPageController();
         $txt = $txt->text;
         $txt['PageTitle'] = 'Login';
 
@@ -38,7 +38,7 @@ class PageController
     }
     public function homeback(RequestInterface $request, ResponseInterface $response)
     {
-        $txt = new TextPageControll();
+        $txt = new TextPageController();
         $txt = $txt->text;
         $data = $request->getParsedBody();
         $txt['ErrorMsg'] = false;

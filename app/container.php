@@ -1,6 +1,5 @@
 <?php
 
-require_once ('controllers/Database.php');
 $container = $app->getContainer();
 
 $container['view'] = function ($container)
@@ -26,6 +25,6 @@ $container['pdo'] = function (){
 };
 
 $container['db'] = function ($container){
-    return new Database($container->pdo);
+    return new App\Connection\Database($container->pdo);
 };
 
