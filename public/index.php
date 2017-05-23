@@ -10,8 +10,8 @@ $app= new \Slim\App([
 
 require '../app/container.php';
 
-
 $app->get('/',\App\Controllers\PageController::class . ':home');
+$app->get('/test',\App\Controllers\PageController::class . ':test');
 $app->get('/login',\App\Controllers\PageController::class . ':login');
 $app->post('/homeback',\App\Controllers\PageController::class . ':homeback')->setName('loggato');
 

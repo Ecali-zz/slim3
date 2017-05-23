@@ -1,5 +1,6 @@
 <?php
 
+require_once ('controllers/Database.php');
 $container = $app->getContainer();
 
 $container['view'] = function ($container)
@@ -15,3 +16,16 @@ $container['view'] = function ($container)
 
     return $view;
 };
+
+$container['pdo'] = function (){
+
+    $pdo = new PDO('mysql:dbname=slim3;host=localhost:8889','root','root');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    return $pdo;
+
+};
+
+$container['db'] = function ($container){
+    return new Database($container->pdo);
+};
+

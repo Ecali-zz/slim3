@@ -1,14 +1,14 @@
 <?php
 namespace App\Controllers;
 
+require '../container.php';
 
-class dbConnectionController
+class dbConnectionControll
 {
-    public function __construct()
-    {
-        $pdo = new PDO('mysql:dbname=slim3;host=localhost:8889','root','root');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $pdo;
-    }
 
+    public function sayHello(\Slim\Http\Request $request, \Slim\Http\Response $response, $args){
+        $posts = $this->container->db->query('SELECT * FROM post');
+        var_dump($posts);
+        return $response->write('Hello '.$args['name']);
+    }
 }

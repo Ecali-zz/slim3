@@ -13,7 +13,12 @@ class PageController
         $this->container = $container;
     }
 
+    public function test(RequestInterface $request, ResponseInterface $response)
+    {
+        //die(var_dump(get_declared_classes()));
 
+        $this->container->view->render($response, 'pages/home.twig');
+    }
 
     public function home(RequestInterface $request, ResponseInterface $response)
     {
@@ -33,12 +38,13 @@ class PageController
     }
     public function homeback(RequestInterface $request, ResponseInterface $response)
     {
-        $txt= new TextPageControll();
+        $txt = new TextPageControll();
         $txt = $txt->text;
-        $db = new dbConnectionController();
-        $posts = $this->container->db->query('SELECT * FROM post');
-        var_dump($posts);
         $data = $request->getParsedBody();
+
+        $posts = $this->container->db->query('SELECT * FROM post');
+        die(var_dump($posts));
+
         $txt['user'] = $data['Userlog'];
         $txt['psw'] = $data['psw'];
 
