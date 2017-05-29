@@ -1,4 +1,34 @@
 {% extends 'layout-back.twig' %}
-{% block maincontent%}
 
+{% block morehead %}
+    <script>
+        function validateForm() {
+            var title = document.forms["first"]["title"].value;
+            var body = document.forms["first"]["body"].value;
+            if (title === "") {
+                alert("ERROR: il titolo non può essere vuoto");
+                return false;
+            }
+            if (body === "") {
+                alert("ERROR: il body della news non può essere vuoto");
+                return false;
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block maincontent%}
+    {% if okadd %}
+        <h4 style="color: red;">News aggiunta con successo</h4>
+    {% endif %}
+    <div class="logblock">
+        <form class="formlogin" name="first" action = "{{ path_for('aggiunto')}}" onsubmit="return validateForm()" method = "GET">
+            <label>Title:<input type="text" id="title" name="title" placeholder="Title"/> </label>
+            <br>
+            <label>Body:<br><textarea name="body" rows="5" cols="40" placeholder="Body of news"></textarea></label>
+            <br>
+            <label>Immage:<input type = "text" name = "img" placeholder="Url image" /></label><br>
+            <input type = "submit" value="Inserisci news"/>
+        </form>
+    </div>
 {% endblock %}

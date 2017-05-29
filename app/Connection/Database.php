@@ -22,17 +22,16 @@ class Database
     {
         $req = $this->pdo->prepare('SELECT * FROM posts');
         $req->execute();
-        //
         return $req->fetchAll();
     }
-    public function addpost($id , $title, $body,$img)
+    public function addpost( $title, $body,$img)
     {
-        $str='INSERT INTO posts(id,title,body,img) VALUES ('.$id.',\''.$title.'\',\''.$body.'\','.$img.')';
-        //die(var_dump($str));
+
+        $str="INSERT INTO posts(title,body,img) VALUES ('".$title."','".$body."','".$img."')";
         $req = $this->pdo->prepare($str);
-       
+       //die(var_dump($str));
         $req->execute();
 
-        return $req->fetchAll();
+        //return $req->fetchAll();
     }
 }

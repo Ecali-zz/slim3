@@ -39,7 +39,6 @@ class PageController
     {
 
         $data = $request->getParsedBody();
-
         $posts = $this->container->db->queryuser();
         $news = $this->container->db->querypost();
         for($y=0;$y<count($posts);$y++) {
@@ -50,11 +49,10 @@ class PageController
         }
         $_SESSION['Userlog'] = $data['Userlog'];
         $_SESSION['psw']= $data['psw'];
-        //die(var_dump($_SESSION));
         $this->variables->addInjection('Userlog', $data['Userlog']);
         $this->variables->addInjection('psw', $data['psw']);
         $this->variables->addInjection('PageTitle', 'Homepage Backend');
-        for($y=2;$y>=0;$y--) {
+        for($y=0;$y>=3;$y++) {
             if($news[$y]['title'] !== '') {
                 $this->variables->addInjection('titlenews' . $y, $news[$y]['title']);
                 $this->variables->addInjection('bodynews' . $y, $news[$y]['body']);
@@ -66,11 +64,33 @@ class PageController
     }
     public function addNews(RequestInterface $request, ResponseInterface $response)
     {
+        $title = $_GET['title'];
+        if($title !== null) {
+
+            $body = $_GET['body'];
+            $img = $_GET['img'];
+            $this->variables->addInjection('okadd',true );
+            $this->container->db->addpost ($title, $body, $img);
+        }
         $this->variables->addInjection('PageTitle', 'Add a News');
         $this->variables->addInjection('Userlog',$_SESSION['Userlog']);
         $this->variables->addInjection('psw',$_SESSION['psw']);
-        //die(var_dump($this->variables->getInjections()));
         $this->container->view->render($response, 'pages/addnews.twig', $this->variables->getInjections());
     }
+    public function gethomeback(RequestInterface $request, ResponseInterface $response)
+    {
+        $news = $this->container->db->querypost();
+        $this->variables->addInjection('PageTitle', 'Homepage Backend');
+        $this->variables->addInjection('Userlog',$_SESSION['Userlog']);
+        for($y=2;$y>=0;$y--) {
+            if($news[$y]['title'] !== '') {
+                $this->variables->addInjection('titlenews' . $y, $news[$y]['title']);
+                $this->variables->addInjection('bodynews' . $y, $news[$y]['body']);
+                $this->variables->addInjection('imgnews' . $y, $news[$y]['img']);
+            }
+        }
+        $this->variables->addInjection('ErrorMsg', true);
+        $this->container->view->render($response, 'pages/homeback.twig', $this->variables->getInjections());
 
+    }
 }
