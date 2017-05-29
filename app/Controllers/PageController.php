@@ -10,6 +10,8 @@ class PageController
 {
     private $container;
     private $variables = [];
+    private $dest = '/Users/elvio/Sites/Slim3/public/images';
+    private $src= '/Users/elvio/Desktop/upimg';
     public function __construct($container)
     {
         $this->container = $container;
@@ -58,9 +60,10 @@ class PageController
         for($y=$count+3;$y>=$count;$y--) {
 
             if($news[$y]['title'] !== '') {
+                $img='/images/'.$news[$y]['img'];
                 $this->variables->addInjection('titlenews' . $h, $news[$y]['title']);
                 $this->variables->addInjection('bodynews' . $h, $news[$y]['body']);
-                $this->variables->addInjection('imgnews' . $h, $news[$y]['img']);
+                $this->variables->addInjection('imgnews' . $h, $img);
             }
             $h+=1;
         }
@@ -73,7 +76,14 @@ class PageController
         if($title !== null) {
 
             $body = $_GET['body'];
-            $img = $_GET['img'];
+            $img = $_GET['userfile'];
+
+            $desttemp=$this->dest;
+            $srctemp=$this->src;
+            $srctemp .= '/'.$img;
+            $desttemp .= '/'.$img;
+            copy($srctemp, $desttemp);
+            
             $this->variables->addInjection('titlenews', $title);
             $this->variables->addInjection('okadd',true );
             $this->container->db->addpost ($title, $body, $img);
@@ -94,9 +104,10 @@ class PageController
         for($y=$count+3;$y>=$count;$y--) {
 
             if($news[$y]['title'] !== '') {
+                $img='/images/'.$news[$y]['img'];
                 $this->variables->addInjection('titlenews' . $h, $news[$y]['title']);
                 $this->variables->addInjection('bodynews' . $h, $news[$y]['body']);
-                $this->variables->addInjection('imgnews' . $h, $news[$y]['img']);
+                $this->variables->addInjection('imgnews' . $h, $img);
             }
             $h+=1;
         }
