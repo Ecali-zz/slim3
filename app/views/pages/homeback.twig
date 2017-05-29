@@ -24,9 +24,11 @@
                 {% set imgnews, titlenews, bodynews= imgnews0, titlenews0, bodynews0 %}
             {% endif %}
         <div class="newshome">
+            {% if imgnews != null %}
             <div class="img-news2">
                 <img class="img-news" src="{{ imgnews }}">
             </div>
+                {% endif %}
             <div class="bodynews">
                 <h4>{{ titlenews | upper }}</h4>
                 <hr style="width: 100%;">

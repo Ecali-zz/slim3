@@ -83,7 +83,7 @@ class PageController
             $srctemp .= '/'.$img;
             $desttemp .= '/'.$img;
             copy($srctemp, $desttemp);
-            
+
             $this->variables->addInjection('titlenews', $title);
             $this->variables->addInjection('okadd',true );
             $this->container->db->addpost ($title, $body, $img);
