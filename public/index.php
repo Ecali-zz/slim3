@@ -20,6 +20,6 @@ $app->post('/homeback',\App\Controllers\PageController::class . ':homeback')->se
 $app->get('/add/news',\App\Controllers\PageController::class . ':addNews')->setName('aggiunto');
 $app->get('/home',\App\Controllers\PageController::class . ':gethomeback');
 $app->get('/user/{user}',\App\Controllers\PageController::class . ':user');
-
+$app->get('/news',\App\Controllers\PageController::class . ':news');
 
 $app->run();

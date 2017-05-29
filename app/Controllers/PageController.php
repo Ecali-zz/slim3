@@ -59,7 +59,7 @@ class PageController
         $h=0;
         for($y=$count+3;$y>=$count;$y--) {
 
-            if($news[$y]['title'] !== '') {
+            if($news[$y]['title'] !== null) {
                 $img='/images/'.$news[$y]['img'];
                 $this->variables->addInjection('titlenews' . $h, $news[$y]['title']);
                 $this->variables->addInjection('bodynews' . $h, $news[$y]['body']);
@@ -103,7 +103,7 @@ class PageController
         $h=0;
         for($y=$count+3;$y>=$count;$y--) {
 
-            if($news[$y]['title'] !== '') {
+            if($news[$y]['title'] !== null) {
                 $img='/images/'.$news[$y]['img'];
                 $this->variables->addInjection('titlenews' . $h, $news[$y]['title']);
                 $this->variables->addInjection('bodynews' . $h, $news[$y]['body']);
@@ -120,6 +120,25 @@ class PageController
         $this->variables->addInjection('PageTitle', 'User Backend');
         $this->variables->addInjection('Userlog',$_SESSION['Userlog']);
         $this->container->view->render($response, 'pages/user.twig', $this->variables->getInjections());
+
+    }
+    public function news(RequestInterface $request, ResponseInterface $response)
+    {
+        $news = $this->container->db->querypost();
+
+        $count=count($news);
+        for($y=0;$y<=$count;$y++) {
+            if($news[$y]['title'] != null) {
+                $img = '/images/' . $news[$y]['img'];
+                $this->variables->addInjection('titlenews' . $y, $news[$y]['title']);
+                $this->variables->addInjection('bodynews' . $y, $news[$y]['body']);
+                $this->variables->addInjection('imgnews' . $y, $img);
+        }
+        }
+        $this->variables->addInjection('nfor', $count);
+        $this->variables->addInjection('PageTitle', 'All News');
+        $this->variables->addInjection('Userlog',$_SESSION['Userlog']);
+        $this->container->view->render($response, 'pages/news.twig', $this->variables->getInjections());
 
     }
 }
