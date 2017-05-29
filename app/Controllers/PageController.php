@@ -115,4 +115,11 @@ class PageController
         $this->container->view->render($response, 'pages/homeback.twig', $this->variables->getInjections());
 
     }
+    public function user(RequestInterface $request, ResponseInterface $response)
+    {
+        $this->variables->addInjection('PageTitle', 'User Backend');
+        $this->variables->addInjection('Userlog',$_SESSION['Userlog']);
+        $this->container->view->render($response, 'pages/user.twig', $this->variables->getInjections());
+
+    }
 }

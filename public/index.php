@@ -19,6 +19,7 @@ $app->get('/login',\App\Controllers\PageController::class . ':login');
 $app->post('/homeback',\App\Controllers\PageController::class . ':homeback')->setName('loggato');
 $app->get('/add/news',\App\Controllers\PageController::class . ':addNews')->setName('aggiunto');
 $app->get('/home',\App\Controllers\PageController::class . ':gethomeback');
+$app->get('/user/{user}',\App\Controllers\PageController::class . ':user');
 
 
 $app->run();
