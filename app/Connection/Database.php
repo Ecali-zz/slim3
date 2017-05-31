@@ -34,4 +34,22 @@ class Database
 
         //return $req->fetchAll();
     }
+
+    public function queryvideo()
+    {
+        $req = $this->pdo->prepare('SELECT * FROM video');
+        $req->execute();
+
+        return $req->fetchAll();
+    }
+
+    public function addvideo( $title, $embed,$tag,$protetto,$playlist)
+    {
+        $str="INSERT INTO video(titolovideo,playlist,embed,protetto,tag) VALUES ('".$title."','".$playlist."','".$embed."','".$protetto."','".$tag."')";
+        $req = $this->pdo->prepare($str);
+        //die(var_dump($str));
+        $req->execute();
+
+        //return $req->fetchAll();
+    }
 }

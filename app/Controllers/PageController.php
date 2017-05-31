@@ -119,26 +119,64 @@ class PageController
     {
         $this->variables->addInjection('PageTitle', 'User Backend');
         $this->variables->addInjection('Userlog',$_SESSION['Userlog']);
+        $this->variables->addInjection('video','<iframe width="560" height="315" src="https://www.youtube.com/embed/s1xbQVNGSPQ?list=PLlyrc-a-pcGiOBtu6dFFVH2sIZPzvXAdH" frameborder="0" allowfullscreen></iframe>
+');
         $this->container->view->render($response, 'pages/user.twig', $this->variables->getInjections());
 
     }
-    public function news(RequestInterface $request, ResponseInterface $response)
+
+    public function addvideo(RequestInterface $request, ResponseInterface $response)
     {
-        $news = $this->container->db->querypost();
+        $videoesiste=false;
+        $video = $this->container->db->queryvideo();
+        for ($x = 0; $x < count($video); $x++) {
+            if ($video[$x]['titolovideo'] == $_GET['title']) {
+                $videoesiste=true;
+                $this->variables->addInjection('Errorvideoesiste', 'Il video è già stato Inserito');
+            }
+        }
+            if ($_GET['title'] != null && $videoesiste === false) {
+                $this->variables->addInjection('title', $_GET['title']);
+                $title = $_GET['title'];
+                $embed = $_GET['embed'];
+                if ($_GET['tag'] == null) {
+                    $tag = 'none';
+                } else {
+                    $tag = $_GET['tag'];
+                }
+                if ($_GET['protetto'] == null) {
+                    $protetto = false;
+                } else {
+                    $protetto = true;
+                }
+                if ($_GET['playlist'] == null) {
+                    $playlist = false;
+                } else {
+                    $playlist = true;
+                }
+                $this->container->db->addvideo($title, $embed, $tag, $protetto, $playlist);
+                $this->variables->addInjection('okadd', true);
+            }
 
-        $count=count($news);
-        for($y=0;$y<=$count;$y++) {
-            if($news[$y]['title'] != null) {
-                $img = '/images/' . $news[$y]['img'];
-                $this->variables->addInjection('titlenews' . $y, $news[$y]['title']);
-                $this->variables->addInjection('bodynews' . $y, $news[$y]['body']);
-                $this->variables->addInjection('imgnews' . $y, $img);
-        }
-        }
-        $this->variables->addInjection('nfor', $count);
-        $this->variables->addInjection('PageTitle', 'All News');
+        $this->variables->addInjection('PageTitle', 'Add video');
         $this->variables->addInjection('Userlog',$_SESSION['Userlog']);
-        $this->container->view->render($response, 'pages/news.twig', $this->variables->getInjections());
 
+        $this->container->view->render($response, 'pages/addvideo.twig', $this->variables->getInjections());
+    }
+    public function viewvideo(RequestInterface $request, ResponseInterface $response)
+    {
+        $video = $this->container->db->queryvideo();
+        //die(var_dump($video));
+        for($x=0;$x<count($video);$x++){
+            $this->variables->addInjection('titolo', $video[$x][1]);
+            $this->variables->addInjection('playlist', $video[$x][2]);
+            $this->variables->addInjection('embed', $video[$x][3]);
+            $this->variables->addInjection('protetto', $video[$x][4]);
+            $this->variables->addInjection('tag', $video[$x][5]);
+        }
+        $this->variables->addInjection('PageTitle', 'view all video');
+        $this->variables->addInjection('Userlog',$_SESSION['Userlog']);
+
+        $this->container->view->render($response, 'pages/viewallvideo.twig', $this->variables->getInjections());
     }
 }
