@@ -1,4 +1,7 @@
 /*----------------------- BASE ------------------------*/
+body{
+    font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
 a{
     text-decoration: none;
     color: darkgreen;
@@ -129,4 +132,40 @@ a{
 }
 .videoinuser{
     margin-top: 150px;
+}
+.video {
+    width: 50%;
+    float: left;
+    margin-bottom: 45px;
+}
+.title-video {
+    height: 30px;
+    margin-bottom: 5px;
+    padding: 5px;
+    margin-top: 10px;
+}
+p.for-protect {
+    width: 80%;
+    margin-left: 15%;
+    text-align: center;
+}
+.formprotect{
+    width: 80%;
+    margin-left: 15%;
+    text-align: center;
+}
+hr.hr-menu {
+    width: 90%;
+    margin-left: 10%;
+}
+hr.hr-video {
+    width: 90%;
+    margin: 5%;
+}
+.master-column{
+    width: 95%;
+}
+.video-full {
+    width: 90%;
+    margin-left: 5%;
 }

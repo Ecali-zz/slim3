@@ -47,6 +47,8 @@ class PageController
             if ($posts[$y]['user'] === $data['Userlog'] && $posts[$y]['psw'] === $data['psw']) {
                 $this->variables->addInjection('ErrorMsg', true);
                 $this->variables->addInjection('lv', $posts[$y]['lva']);
+                $_SESSION['mag'] = $posts[$y]['mag'];
+
             }
         }
         $_SESSION['Userlog'] = $data['Userlog'];
@@ -77,13 +79,13 @@ class PageController
 
             $body = $_GET['body'];
             $img = $_GET['userfile'];
-
-            $desttemp=$this->dest;
-            $srctemp=$this->src;
-            $srctemp .= '/'.$img;
-            $desttemp .= '/'.$img;
-            copy($srctemp, $desttemp);
-
+            if(!empty($img)) {
+                $desttemp = $this->dest;
+                $srctemp = $this->src;
+                $srctemp .= '/' . $img;
+                $desttemp .= '/' . $img;
+                copy($srctemp, $desttemp);
+            }
             $this->variables->addInjection('titlenews', $title);
             $this->variables->addInjection('okadd',true );
             $this->container->db->addpost ($title, $body, $img);
@@ -128,17 +130,35 @@ class PageController
     public function addvideo(RequestInterface $request, ResponseInterface $response)
     {
         $videoesiste=false;
+        $videoesistedelete=true;
         $video = $this->container->db->queryvideo();
         for ($x = 0; $x < count($video); $x++) {
             if ($video[$x]['titolovideo'] == $_GET['title']) {
                 $videoesiste=true;
                 $this->variables->addInjection('Errorvideoesiste', 'Il video è già stato Inserito');
+                if($_GET['delete'] != null){
+                    $videoesistedelete=false;
+                    $video = $this->container->db->deletevideo($_GET['title']);
+                    $this->variables->addInjection('okeliminato', 'Il video è stato eliminato con successo');
+                }else{
+                    $this->variables->addInjection('okeliminato', 'Dovresti checcare per dare il consenso se no non si può eliminare');
+                }
             }
         }
             if ($_GET['title'] != null && $videoesiste === false) {
                 $this->variables->addInjection('title', $_GET['title']);
                 $title = $_GET['title'];
-                $embed = $_GET['embed'];
+
+                $re = '/(.*?)(width=")(\d*)(.*)/';
+                $re2 = '/(.*?)(eight=")(\d*)(.*)/';
+                preg_match_all($re, $_GET['embed'], $matches);
+                preg_match_all($re2, $_GET['embed'], $matches2);
+                $serch = '/' . $matches[3][0] . '/';
+                $serch2 = '/' . $matches2[3][0] . '/';
+                $firstembed = preg_replace($serch, 250, $_GET['embed']);
+                $firstembed = preg_replace($serch2, 150, $firstembed);
+                $embed = $firstembed;
+
                 if ($_GET['tag'] == null) {
                     $tag = 'none';
                 } else {
@@ -158,25 +178,79 @@ class PageController
                 $this->variables->addInjection('okadd', true);
             }
 
-        $this->variables->addInjection('PageTitle', 'Add video');
+        $this->variables->addInjection('PageTitle', 'Gestione video');
+        $this->variables->addInjection('addtitle', 'Add video');
+        $this->variables->addInjection('deletetitle', 'Delete video');
         $this->variables->addInjection('Userlog',$_SESSION['Userlog']);
 
         $this->container->view->render($response, 'pages/addvideo.twig', $this->variables->getInjections());
     }
     public function viewvideo(RequestInterface $request, ResponseInterface $response)
     {
-        $video = $this->container->db->queryvideo();
-        //die(var_dump($video));
-        for($x=0;$x<count($video);$x++){
-            $this->variables->addInjection('titolo', $video[$x][1]);
-            $this->variables->addInjection('playlist', $video[$x][2]);
-            $this->variables->addInjection('embed', $video[$x][3]);
-            $this->variables->addInjection('protetto', $video[$x][4]);
-            $this->variables->addInjection('tag', $video[$x][5]);
+        $protect=false;
+        if($_POST['psw']==$_SESSION['psw'] && $_SESSION['mag']>0) {
+            $this->variables->addInjection('protect', true);
+            $protect=true;
         }
+
+        if(!isset($_GET['tags'])){
+            if(!$protect){
+                $allvideos = $this->container->db->queryvideononprotect();
+                $videos=$allvideos;
+            }else{
+                $allvideos = $this->container->db->queryvideoprotect();
+                $videos=$allvideos;
+            }
+        }else if (empty($_GET['tags'])){
+            if(!$protect){
+                $allvideos = $this->container->db->queryvideononprotect();
+                $videos=$allvideos;
+            }else{
+                $allvideos = $this->container->db->queryvideoprotect();
+                $videos=$allvideos;
+            }
+        } else{
+            $videos = $this->container->db->queryvideotags($_GET['tags']);
+            $allvideos = $this->container->db->queryvideo();
+        }
+        $allvideos = $this->container->db->queryvideo();
+
+
+            $re = '/(.*?)(width=")(\d*)(.*)/';
+            $re2 = '/(.*?)(eight=")(\d*)(.*)/';
+            preg_match_all($re, $videos[count($videos) - 1]['embed'], $matches);
+            preg_match_all($re2, $videos[count($videos) - 1]['embed'], $matches2);
+            $serch = '/' . $matches[3][0] . '/';
+            $serch2 = '/' . $matches2[3][0] . '/';
+            $firstembed = preg_replace($serch, 560, $videos[count($videos) - 1]['embed']);
+            $firstembed = preg_replace($serch2, 315, $firstembed);
+            $videos[count($videos) - 1]['embed'] = $firstembed;
+        $videos=array_reverse($videos);
+
+        $this->variables->addInjection('allvideos', $allvideos);
+        $this->variables->addInjection('videos', $videos);
         $this->variables->addInjection('PageTitle', 'view all video');
         $this->variables->addInjection('Userlog',$_SESSION['Userlog']);
-
         $this->container->view->render($response, 'pages/viewallvideo.twig', $this->variables->getInjections());
+    }
+    public function singlevideo(RequestInterface $request, ResponseInterface $response){
+
+        $videos = $this->container->db->querytitlevideo($_GET['titolo']);
+
+
+        $embi = $videos[0]['embed'];
+
+            $re = '/(.*?)(width=")(\d*)(.*)/';
+            $re2 = '/(.*?)(eight=")(\d*)(.*)/';
+            preg_match_all($re, $embi, $matches);
+            preg_match_all($re2, $embi, $matches2);
+            $serch = '/' . $matches[3][0] . '/';
+            $serch2 = '/' . $matches2[3][0] . '/';
+            $firstembed = preg_replace($serch, 1120 , $embi);
+            $firstembed = preg_replace($serch2, 630  , $firstembed);
+            $embi = $firstembed;
+        $this->variables->addInjection('embi', $embi);
+        $this->variables->addInjection('videos', $videos);
+        $this->container->view->render($response, 'singlevideo.twig', $this->variables->getInjections());
     }
 }

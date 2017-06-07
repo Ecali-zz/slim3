@@ -21,7 +21,8 @@ $app->get('/add/news',\App\Controllers\PageController::class . ':addNews')->setN
 $app->get('/home',\App\Controllers\PageController::class . ':gethomeback');
 $app->get('/user/{user}',\App\Controllers\PageController::class . ':user');
 $app->get('/add/video',\App\Controllers\PageController::class . ':addvideo')->setName('addvideo');
-$app->get('/view/video',\App\Controllers\PageController::class . ':viewvideo');
+$app->any('/view/video',\App\Controllers\PageController::class . ':viewvideo')->setName('protect');
+$app->any('/view/video/',\App\Controllers\PageController::class . ':singlevideo');
 
 
 $app->run();

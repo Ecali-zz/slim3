@@ -42,6 +42,26 @@ class Database
 
         return $req->fetchAll();
     }
+    public function queryvideotags($tag)
+    {
+        $req = $this->pdo->prepare('SELECT * FROM video WHERE tag ="'.$tag.'"');
+        $req->execute();
+                return $req->fetchAll();
+    }
+
+    public function queryvideoprotect()
+    {
+        $req = $this->pdo->prepare('SELECT * FROM video WHERE protetto ="1"');
+        $req->execute();
+        return $req->fetchAll();
+    }
+
+    public function queryvideononprotect()
+    {
+        $req = $this->pdo->prepare('SELECT * FROM video WHERE protetto ="0"');
+        $req->execute();
+        return $req->fetchAll();
+    }
 
     public function addvideo( $title, $embed,$tag,$protetto,$playlist)
     {
@@ -52,4 +72,24 @@ class Database
 
         //return $req->fetchAll();
     }
+    public function deletevideo( $title )
+    {
+        $str='DELETE FROM `video` WHERE titolovideo = "'.$title.'"';
+        $req = $this->pdo->prepare($str);
+        //die(var_dump($str));
+        $req->execute();
+
+        //return $req->fetchAll();
+    }
+    public function querytitlevideo( $title )
+    {
+        $str='SELECT * FROM `video` WHERE titolovideo = "'.$title.'"';
+        $req = $this->pdo->prepare($str);
+        //die(var_dump($str));
+        $req->execute();
+        return $req->fetchAll();
+    }
 }
+
+
+

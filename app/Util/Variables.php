@@ -39,10 +39,12 @@ class Variables
      */
     public function addInjection($key, $value)
     {
-        $value = trim($value);
-
         if ($value === '') {
             throw new \Exception($key.' can\'t be empty');
+        }
+
+        if (!is_array($value)) {
+            $value = trim($value);
         }
 
         $this->injections[$key] = $value;

@@ -1,0 +1,38 @@
+<html>
+<head>
+        {% set pageTitle = video['titolo'] %}
+<title>{{ pageTitle }}</title>
+    <link href="/css/stile-backend.css" rel="stylesheet" type="text/css">
+    {% block morehead %}
+    {% endblock %}
+</head>
+<body style="background-color: black">
+<div class="sx-column-top">
+    {% block sxcolumntop %}
+        <a  href="/view/video"><div class="btn-left-side">View all Video</div></a>
+    {% endblock %}
+</div>
+<div class="main-column-top" style="background-color: black; color: yellow">
+    <div class="page-title">
+        <h1 style="color: yellow">{{ pageTitle }}</h1>
+    </div>
+    {% block maincontenttop %}
+    {% for video in videos %}
+
+    {{ video['titolovideo'] }}
+    {% endfor %}
+    {% endblock %}
+</div>
+<div class="dx-column-top">
+    {% block dxcolumntop %}
+    {% endblock %}
+</div>
+<div class="master-column">
+    {% block mastercontent %}
+        <div class="video-full" >
+        {{ embi | raw }}
+        </div>
+    {% endblock %}
+</div>
+</body>
+</html>
