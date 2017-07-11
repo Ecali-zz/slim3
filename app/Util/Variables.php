@@ -16,7 +16,7 @@ class Variables
             'login'     => 'login',
             'singin'    => 'singin',
             'quit'      => 'https://www.google.it/',
-            'about'     => 'abut',
+            'about'     => 'about',
             //--------------------
             'Userlog'   => 'User',
             'ErrorMsg'  => false,

@@ -25,6 +25,7 @@ class PageController
 
     public function home(RequestInterface $request, ResponseInterface $response)
     {
+
         $this->variables->addInjection('PageTitle', 'Home');
 
         $this->container->view->render($response, 'pages/home.twig', $this->variables->getInjections());
