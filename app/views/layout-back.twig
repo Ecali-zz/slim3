@@ -7,6 +7,8 @@
     {% endif %}
     <title>{{ pageTitle }}</title>
     <link href="/css/stile-backend.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css">
     {% block morehead %}
     {% endblock %}
 </head>
@@ -31,12 +33,12 @@
 
 <div class="sx-column">
     {% block sxcolumn %}
-        <a  href="/home"><div class="btn-left-side">Home</div></a>
-        <a  href="/add/news"><div class="btn-left-side">New news</div></a>
+        <a  href="/home"><div class="btn btn-primary btn-lg btn-block">Home</div></a>
+        <a  href="/add/news"><div class="btn btn-primary btn-lg btn-block">New news</div></a>
             {% if(lv < 2 ) %}
-                <a  href="/add/video"><div class="btn-left-side">Manage Video</div></a>
+                <a  href="/add/video"><div class="btn btn-primary btn-lg btn-block">Manage Video</div></a>
                 {% if(lv < 1) %}
-                    <a  href="/view/video"><div class="btn-left-side">View all Video</div></a>
+                    <a  href="/view/video"><div class="btn btn-primary btn-lg btn-block">View all Video</div></a>
                 {% endif %}
             {% endif %}
     {% endblock %}
