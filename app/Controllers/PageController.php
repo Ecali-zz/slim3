@@ -49,7 +49,6 @@ class PageController
                 $this->variables->addInjection('ErrorMsg', true);
                 $this->variables->addInjection('lv', $posts[$y]['lva']);
                 $_SESSION['mag'] = $posts[$y]['mag'];
-
             }
         }
         $_SESSION['Userlog'] = $data['Userlog'];

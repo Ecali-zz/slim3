@@ -17,8 +17,7 @@ $container['view'] = function ($container)
 };
 
 $container['pdo'] = function (){
-
-    $pdo = new \PDO('mysql:dbname=slim3;host=localhost:8889','root','root');
+    $pdo = new \PDO('mysql:dbname=slim3;host=db','root','rootpass');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $pdo;
 
